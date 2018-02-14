@@ -12,6 +12,35 @@ enum AnimalHabitatType{
     case poles
     case safari
     
+    init?(habitat : AnimalHabitatType){
+        
+        switch habitat {
+        case .desert:
+            
+            self = .desert
+            
+        case .poles:
+            
+            self = .poles
+        
+        case .tundra:
+            
+            self = .tundra
+            
+        case .rainForest :
+            
+            self = .rainForest
+            
+        case .safari :
+            
+            self = .safari
+            
+        default:
+            
+            print("ERROR 001 : Invalid Habitat Value")
+        }
+    }
+    
 }
 
 enum AnimalSpeciesType{
@@ -41,7 +70,7 @@ class AnimalType : Animal{
     private var humanFriendly : Bool
     
     
-    init(_ name : String,_ species : AnimalSpeciesType,_ habitat : AnimalHabitatType,_ humanFriendly : Bool){
+    init(name : String, species : AnimalSpeciesType, habitat : AnimalHabitatType, humanFriendly : Bool){
         
         self.animalName = name
         self.habitat = habitat
@@ -70,9 +99,19 @@ class AnimalType : Animal{
 
 class Bird : AnimalType{
     
-    init() {
-        super.init(String, AnimalSpeciesType.bird, AnimalHabitatType.rainForest, Bool)
+    private var wingSpan : Int
+    private var isLethal : Bool
+    private let color : String
+    
+    init(birdWingSpan : Int, isLethal : Bool, color : String, name : String, species : AnimalSpeciesType, habitat : AnimalHabitatType, humanFriendly : Bool){
+        
+        self.wingSpan = birdWingSpan
+        self.isLethal = isLethal
+        self.color = color
+        
+            super.init(name: String, species: AnimalSpeciesType, habitat: AnimalHabitatType, humanFriendly: Bool)
     }
+    
 }
 
 
@@ -80,9 +119,4 @@ class Bird : AnimalType{
 
             // TESTING
 
-let mufasa = AnimalType("Lion", AnimalSpeciesType.mammal, AnimalHabitatType.safari, false)
-
-
-print(mufasa.eat())
-print(mufasa.sleep())
 
