@@ -68,9 +68,21 @@ class AnimalType : Animal{
     }
 }
 
+class Bird : AnimalType{
+    
+    init() {
+        super.init(String, AnimalSpeciesType.bird, AnimalHabitatType.rainForest, Bool)
+    }
+}
+
 
 
 
             // TESTING
 
 let mufasa = AnimalType("Lion", AnimalSpeciesType.mammal, AnimalHabitatType.safari, false)
+
+
+print(mufasa.eat())
+print(mufasa.sleep())
+
