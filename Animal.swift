@@ -1,5 +1,4 @@
-
-// OOP in Swift. Created by Medi W. Assumani
+//: Playground - noun: a place where people can play
 
 import UIKit
 import Foundation
@@ -34,7 +33,7 @@ enum AnimalSpeciesType{
     
 }
 
-final class AnimalType : Animal{
+class AnimalType : Animal{
     
     private var animalName : String
     private var species : AnimalSpeciesType
@@ -42,7 +41,7 @@ final class AnimalType : Animal{
     private var humanFriendly : Bool
     
     
-    init(name : String, species : AnimalSpeciesType, habitat : AnimalHabitatType, humanFriendly : Bool){
+    init(_ name : String,_ species : AnimalSpeciesType,_ habitat : AnimalHabitatType,_ humanFriendly : Bool){
         
         self.animalName = name
         self.habitat = habitat
@@ -50,18 +49,28 @@ final class AnimalType : Animal{
         self.humanFriendly = humanFriendly
     }
     
+    deinit {
+        
+        print("The instance has been deallocated")
+    }
+    
     func sleep() -> String{
         
         return "The \(self.animalName) is sleeping"
     }
-    
     func eat() -> String{
         
         return "The \(self.animalName) is eating"
     }
-    
     func walk() -> String{
         
         return "The \(self.animalName) is walking"
     }
 }
+
+
+
+
+            // TESTING
+
+let mufasa = AnimalType("Lion", AnimalSpeciesType.mammal, AnimalHabitatType.safari, false)
