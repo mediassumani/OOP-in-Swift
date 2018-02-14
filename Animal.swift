@@ -6,38 +6,24 @@ import Foundation
 
 enum AnimalHabitatType{
     
-    case desert
-    case tundra
-    case rainForest
-    case poles
-    case safari
-    
+    case desert, tundra, rainForest, poles, safari, withHumans
     init?(habitat : AnimalHabitatType){
         
         switch habitat {
         case .desert:
-            
             self = .desert
-            
         case .poles:
-            
             self = .poles
-        
         case .tundra:
-            
             self = .tundra
-            
         case .rainForest :
-            
             self = .rainForest
-            
         case .safari :
-            
             self = .safari
-            
+        case .withHumans :
+            self = .withHumans
         default:
-            
-            print("ERROR 001 : Invalid Habitat Value")
+            return nil
         }
     }
     
@@ -51,9 +37,9 @@ enum AnimalSpeciesType{
     
 }
 
-@objc protocol Animal{
+@objc protocol AnimalProtocol{
     
-    @objc optional func makeSound() // I can or cannot implement this function on the class that adopts thi optional protocol
+    @objc optional func makeSound() -> String // I can or cannot implement this function on the class that adopts thi optional protocol
     func sleep() -> String // I MUST implement this function to any class that adopts this protocol
     func eat() -> String // I MUST implement this function to any class that adopts this protocol
     func walk() -> String // I MUST implement this function to any class that adopts this protocol
@@ -62,7 +48,7 @@ enum AnimalSpeciesType{
     
 }
 
-class AnimalType : Animal{
+class AnimalType : AnimalProtocol{
     
     private var animalName : String
     private var species : AnimalSpeciesType
@@ -70,7 +56,9 @@ class AnimalType : Animal{
     private var humanFriendly : Bool
     
     
-    init(name : String, species : AnimalSpeciesType, habitat : AnimalHabitatType, humanFriendly : Bool){
+                //INITIALIZER
+    
+    init(_ name : String,_ species : AnimalSpeciesType,_ habitat : AnimalHabitatType,_ humanFriendly : Bool){
         
         self.animalName = name
         self.habitat = habitat
@@ -78,38 +66,51 @@ class AnimalType : Animal{
         self.humanFriendly = humanFriendly
     }
     
+            //DEINITILIZER
     deinit {
         
         print("The instance has been deallocated")
     }
     
-    func sleep() -> String{
+            //CLASS METHODS ... CAN OR CANNOT BE OVERRIDEN
+    
+    final func sleep() -> String{
         
-        return "The \(self.animalName) is sleeping"
+        return "\(self.animalName) is sleeping"
     }
     func eat() -> String{
         
-        return "The \(self.animalName) is eating"
+        return "\(self.animalName) is eating"
     }
     func walk() -> String{
         
-        return "The \(self.animalName) is walking"
+        return "\(self.animalName) is walking"
+    }
+    
+    func makeSound() -> String {
+        
+        return "\(self.animalName) is making sounds"
+    }
+    
+    func blendIn() -> String {
+        
+        return "\(self.animalName) is camouflaging into the \(self.habitat)"
+    }
+    
+    final func run() -> String {
+        
+        return "\(self.animalName) is runnning"
     }
 }
 
 class Bird : AnimalType{
     
-    private var wingSpan : Int
-    private var isLethal : Bool
-    private let color : String
+    override func makeSound() -> String{
+        return "Bark Bark"
+    }
     
-    init(birdWingSpan : Int, isLethal : Bool, color : String, name : String, species : AnimalSpeciesType, habitat : AnimalHabitatType, humanFriendly : Bool){
-        
-        self.wingSpan = birdWingSpan
-        self.isLethal = isLethal
-        self.color = color
-        
-            super.init(name: String, species: AnimalSpeciesType, habitat: AnimalHabitatType, humanFriendly: Bool)
+    override func walk() -> String {
+        return "The bird is flying"
     }
     
 }
@@ -118,5 +119,12 @@ class Bird : AnimalType{
 
 
             // TESTING
+
+var animal_one = AnimalType("Milos", AnimalSpeciesType.mammal, AnimalHabitatType.withHumans, true)
+var animal_two = AnimalType("Simba", AnimalSpeciesType.mammal, AnimalHabitatType.safari, false)
+
+print(animal_one.eat())
+print(animal_two.walk())
+
 
 
