@@ -106,7 +106,7 @@ class AnimalType : AnimalProtocol{
 class Bird : AnimalType{
     
     override func makeSound() -> String{
-        return "Bark Bark"
+        return "Queek Queek"
     }
     
     override func walk() -> String {
